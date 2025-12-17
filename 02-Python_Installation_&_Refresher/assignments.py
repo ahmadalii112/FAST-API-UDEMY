@@ -30,3 +30,33 @@ Assignment 2
 days = int(input("How many days until your birthday? "))
 weeks = days // 7
 print(f"You have {weeks} weeks until your birthday!")
+
+
+
+
+"""
+Assignment 3
+- Create a list of 5 animals called zoo
+
+- Delete the animal at the 3rd index.
+
+- Append a new animal at the end of the list
+
+- Delete the animal at the beginning of the list.
+
+- Print all the animals
+
+- Print only the first 3 animals
+
+"""
+
+
+zoo = ["lion", "tiger", "elephant", "giraffe", "monkey"]
+zoo.pop(2)
+
+zoo.append("whale")
+
+zoo.pop(0)
+print(zoo)
+
+print(zoo[:3])
