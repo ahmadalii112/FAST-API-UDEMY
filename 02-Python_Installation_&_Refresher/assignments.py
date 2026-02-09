@@ -60,3 +60,20 @@ zoo.pop(0)
 print(zoo)
 
 print(zoo[:3])
+
+
+
+
+
+
+"""
+Create a function that takes in 3 parameters(firstname, lastname, age) and
+
+returns a dictionary based on those values
+"""
+
+def user_details(firstname,lastname,age):
+    return {"firstname":firstname,"lastname":lastname,"age":age}
+
+
+print(user_details("ahmad","ali1",25))
