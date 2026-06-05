@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/FastAPI-Udemy-Couse.iml" filepath="$PROJECT_DIR$/.idea/FastAPI-Udemy-Couse.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PythonProject-FASTAPI.iml" filepath="$PROJECT_DIR$/.idea/PythonProject-FASTAPI.iml" />
     </modules>
   </component>
 </project>

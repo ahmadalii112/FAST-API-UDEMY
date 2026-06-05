@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
+<<<<<<< HEAD
     <option name="sdkName" value="Python 3.13 (FastAPI-Udemy-Couse)" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (FastAPI-Udemy-Couse)" project-jdk-type="Python SDK" />
+=======
+    <option name="sdkName" value="Python 3.14 (PythonProject-FASTAPI)" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.14 (PythonProject-FASTAPI)" project-jdk-type="Python SDK" />
+>>>>>>> df550bf9ab1fb318b744c53365ae56feb5e0923f
 </project>
