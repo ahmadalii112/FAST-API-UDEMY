@@ -68,6 +68,11 @@ async def create_book(book_request: BookRequest):
     return new_book
 
 
+@app.get("/books/{book_id}")
+async def read_book(book_id: int):
+    for book in Books:
+        if book.id == book_id:
+            return book
 
 def find_book_id(book: Book):
     if len(Books) > 0:
