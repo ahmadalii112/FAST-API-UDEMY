@@ -92,6 +92,14 @@ async def update_book(book_request: BookRequest):
             Books[i] = book_request
 
 
+@app.delete("/delete-book")
+async def delete_book(book_id: int):
+    for i in range(len(Books)):
+        if Books[i].id == book_id:
+            Books.pop(i)
+            break
+
+
 def find_book_id(book: Book):
     if len(Books) > 0:
         book.id = Books[-1].id + 1 # last id in a book
