@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Body
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -16,6 +17,13 @@ class Book:
         self.author = author
         self.description = description
         self.rating = rating
+
+class BookRequest(BaseModel):
+    id: int
+    title: str
+    author: str
+    description: str
+    rating: int
 
         
 
@@ -35,8 +43,10 @@ async def read_all_books():
 
 
 @app.post("/create-book")
-async def create_book(book_request = Body()):
+async def create_book(book_request: BookRequest):
     """ 
     {"id": 7,"title": "The Pragmatic Programmer","author": "Andrew Hunt","description": "Practical techniques for becoming a better programmer","rating": 4} 
     """
+    new_book = Book(**book_request.dict())
+    # new_book = Book(**book_request.model_dump())
     Books.append(book_request)
