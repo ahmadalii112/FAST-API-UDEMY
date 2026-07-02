@@ -85,6 +85,13 @@ async def read_book_by_rating(book_rating: int):
     return books_to_return
 
 
+@app.put("/update-book")
+async def update_book(book_request: BookRequest):
+    for i in range(len(Books)):
+        if Books[i].id == book_request.id:
+            Books[i] = book_request
+
+
 def find_book_id(book: Book):
     if len(Books) > 0:
         book.id = Books[-1].id + 1 # last id in a book
