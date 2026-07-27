@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Body, Path, Query, HTTPException
 from pydantic import BaseModel, Field
 from typing import Optional
+from starlette import status
 
 app = FastAPI()
 
@@ -56,12 +57,12 @@ Books = [
 ]
 
 
-@app.get("/books")
+@app.get("/books", status_code=status.HTTP_200_OK)
 async def read_all_books():
     return Books
 
 
-@app.get("/books/publish")
+@app.get("/books/publish", status_code=status.HTTP_200_OK)
 async def read_books_by_publish_date(published_date: int = Query(gt=1999, lt=2031)):
     books_to_return = []
     for book in Books:
@@ -71,7 +72,7 @@ async def read_books_by_publish_date(published_date: int = Query(gt=1999, lt=203
     return books_to_return
     
 
-@app.post("/create-book")
+@app.post("/create-book", status_code=status.HTTP_201_CREATED)
 async def create_book(book_request: BookRequest):
     """ 
     {"id": 7,"title": "The Pragmatic Programmer","author": "Andrew Hunt","description": "Practical techniques for becoming a better programmer","rating": 4} 
@@ -89,7 +90,7 @@ async def read_book(book_id: int = Path(gt=0)):
             return book
     raise HTTPException(status_code=404, detail='Item not found')
 
-@app.get("/books/")
+@app.get("/books/", status_code=status.HTTP_200_OK)
 async def read_book_by_rating(book_rating: int = Query(gt=0, lt=6)):
 
     books_to_return = []
@@ -100,7 +101,7 @@ async def read_book_by_rating(book_rating: int = Query(gt=0, lt=6)):
     return books_to_return
 
 
-@app.put("/update-book")
+@app.put("/update-book", status_code=status.HTTP_204_NO_CONTENT)
 async def update_book(book_request: BookRequest):
     book_changed = False
     for i in range(len(Books)):
@@ -110,7 +111,7 @@ async def update_book(book_request: BookRequest):
     if not book_changed:
         raise HTTPException(status_code=404, detail='Item not found')
 
-@app.delete("/books/{book_id}")
+@app.delete("/books/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_book(book_id: int = Path(gt=0)):
     book_changed = False
     for i in range(len(Books)):
