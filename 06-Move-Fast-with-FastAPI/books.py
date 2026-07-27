@@ -11,13 +11,15 @@ class Book:
     author: str
     description: str
     rating: int
+    published_date: int
 
-    def __init__(self, id, title, author, description, rating):
+    def __init__(self, id, title, author, description, rating, published_date):
         self.id = id
         self.title = title
         self.author = author
         self.description = description
         self.rating = rating
+        self.published_date = published_date
 
 class BookRequest(BaseModel):
     id: Optional[int] = Field(
@@ -28,6 +30,7 @@ class BookRequest(BaseModel):
     author: str = Field(min_length=1)
     description: str = Field(min_length=1, max_length=100)
     rating: int = Field(gt=-1, lt=6)
+    published_date: int = Field(gt=1999, lt=2031)
 
     model_config = {
         "json_schema_extra": {
@@ -35,7 +38,8 @@ class BookRequest(BaseModel):
                 "title": "The Pragmatic Programmer",
                 "author": "Andrew Hunt",
                 "description": "Practical techniques for becoming a better programmer.",
-                "rating": 5
+                "rating": 5,
+                "published_date": 2029,
             }
         }
     }
@@ -43,12 +47,12 @@ class BookRequest(BaseModel):
         
 
 Books = [
-    Book(1, 'Mastering FastAPI', 'Sebastián Ramírez', 'Learn how to build modern APIs with FastAPI.', 5),
-    Book(2, 'Learning Python', 'Mark Lutz', 'A comprehensive guide to Python programming.', 5),
-    Book(3, 'Effective SQL', 'John L. Viescas', 'Best practices for writing efficient SQL queries.', 4),
-    Book(4, 'Docker Deep Dive', 'Nigel Poulton', 'Understand Docker containers and deployment.', 5),
-    Book(5, 'Building REST APIs', 'Brenda Jin', 'Design and develop RESTful web services.', 4),
-    Book(6, 'Clean Architecture', 'Robert C. Martin', 'Learn software architecture and design principles.', 5),
+    Book(1, 'Mastering FastAPI', 'Sebastián Ramírez', 'Learn how to build modern APIs with FastAPI.', 5, 2026),
+    Book(2, 'Learning Python', 'Mark Lutz', 'A comprehensive guide to Python programming.', 5, 2023),
+    Book(3, 'Effective SQL', 'John L. Viescas', 'Best practices for writing efficient SQL queries.', 4, 2022),
+    Book(4, 'Docker Deep Dive', 'Nigel Poulton', 'Understand Docker containers and deployment.', 5, 2021),
+    Book(5, 'Building REST APIs', 'Brenda Jin', 'Design and develop RESTful web services.', 4, 2026),
+    Book(6, 'Clean Architecture', 'Robert C. Martin', 'Learn software architecture and design principles.', 5, 2025),
 ]
 
 
@@ -56,6 +60,16 @@ Books = [
 async def read_all_books():
     return Books
 
+
+@app.get("/books/publish")
+async def read_books_by_publish_date(published_date: int):
+    books_to_return = []
+    for book in Books:
+        if book.published_date == published_date:
+            books_to_return.append(book)
+    
+    return books_to_return
+    
 
 @app.post("/create-book")
 async def create_book(book_request: BookRequest):
