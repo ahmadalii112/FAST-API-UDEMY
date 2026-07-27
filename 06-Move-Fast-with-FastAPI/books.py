@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Body, Path
 from pydantic import BaseModel, Field
 from typing import Optional
 
@@ -83,7 +83,7 @@ async def create_book(book_request: BookRequest):
 
 
 @app.get("/books/{book_id}")
-async def read_book(book_id: int):
+async def read_book(book_id: int = Path(gt=0)):
     for book in Books:
         if book.id == book_id:
             return book
@@ -106,8 +106,8 @@ async def update_book(book_request: BookRequest):
             Books[i] = book_request
 
 
-@app.delete("/delete-book")
-async def delete_book(book_id: int):
+@app.delete("/books/{book_id}")
+async def delete_book(book_id: int = Path(gt=0)):
     for i in range(len(Books)):
         if Books[i].id == book_id:
             Books.pop(i)
